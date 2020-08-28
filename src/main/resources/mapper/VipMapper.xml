@@ -1,16 +1,82 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.guet.mapper.VipMapper">
-	<select id="getAllList" resultType="vipList">
-		SELECT * FROM vip
-	</select>
-	<select id="getVipById" resultType="vipList">
-		SELECT * FROM vip WHERE vipid=#{value}
-	</select>
-	<delete id="deleteVip" parameterType="vipList">
-		DELETE FROM vip WHERE vipid=#{vipid}
-	</delete>
-	<update id="updateVip" parameterType="cn.edu.guet.model.VipList">
-		UPDATE vip SET vipname=#{vipname},phone=#{phone},cardid=#{cardid} WHERE vipid=#{vipid}
-	</update>
+
+    <resultMap type="Vip" id="VipResult">
+        <result property="vipId" column="VIPID"/>
+        <result property="vipName" column="VIPNAME"/>
+        <result property="phone" column="PHONE"/>
+        <result property="cardId" column="CARDID"/>
+        <result property="cardMoney" column="CARDMONEY"/>
+        <result property="consumeMoney" column="CONSUMEMONEY"/>
+        <result property="empId" column="EMPID"/>
+        <result property="cardTime" column="CARDTIME"/>
+    </resultMap>
+
+    <sql id="selectVip">
+        SELECT * FROM vip
+    </sql>
+
+    <select id="selectVipList" parameterType="Vip" resultMap="VipResult">
+        <include refid="selectVip"/>
+        <where>
+            <if test="vipId != null  and vipId != ''">and vipid = #{vipId}</if>
+            <if test="vipName != null  and vipName != ''">and vipname like concat('%', #{vipName}, '%')</if>
+            <if test="phone != null  and phone != ''">and phone = #{phone}</if>
+            <if test="cardType != null  and cardType != ''">and cardtype = #{cardtype}</if>
+            <if test="cardMoney != null ">and cardmoney = #{cardMoney}</if>
+            <if test="consumeMoney != null ">and consumemoney = #{consumeMoney}</if>
+        </where>
+    </select>
+
+    <select id="selectVipById" parameterType="String" resultMap="VipResult">
+        <include refid="selectVip"/>
+        WHERE vipid = #{vipId}
+    </select>
+
+    <select id="selectCountById" parameterType="String" resultType="java.lang.Integer">
+        SELECT count(1) FROM vip WHERE vipid = #{vipId}
+    </select>
+
+    <insert id="insertVip" parameterType="Vip">
+        INSERT INTO vip (
+            <if test="vipId != null and vipId != ''">vipid,</if>
+            <if test="vipName != null and vipName != ''">vipname,</if>
+            <if test="phone != null and phone != ''">phone,</if>
+            <if test="cardId != null">cardid,</if>
+            <if test="cardMoney != null">cardmoney,</if>
+            <if test="consumeMoney != null">consumemoney,</if>
+            <if test="empId != null">empid,</if>
+            cardtime
+        )values(
+            <if test="vipId != null and vipId != ''">#{vipId},</if>
+            <if test="vipName != null and vipName != ''">#{vipName},</if>
+            <if test="phone != null and phone != ''">#{phone},</if>
+            <if test="cardId != null">#{cardId},</if>
+            <if test="cardMoney != null">#{cardMoney},</if>
+            <if test="consumeMoney != null">#{consumeMoney},</if>
+            <if test="empId != null">#{empId},</if>
+            sysdate
+        )
+    </insert>
+
+    <update id="updateVip" parameterType="Vip">
+        update vip
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="vipName != null and vipName != ''">vipname = #{vipName},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="cardId != null">cardtype = #{cardId},</if>
+            <if test="cardMoney != null">cardmoney = #{cardMoney},</if>
+            <if test="consumeMoney != null">consumemoney = #{consumeMoney},</if>
+            <if test="empId != null">empid = #{empId},</if>
+        </trim>
+        where vipid = #{vipId}
+    </update>
+
+    <delete id="deleteVipById" parameterType="String">
+        delete from vip where vipid = #{vipId}
+    </delete>
+
 </mapper>
