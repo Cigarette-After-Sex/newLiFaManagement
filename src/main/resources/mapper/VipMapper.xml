@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.guet.mapper.VipMapper">
+	<select id="getAllList" resultType="vipList">
+		SELECT * FROM vip
+	</select>
+	<select id="getVipById" resultType="vipList">
+		SELECT * FROM vip WHERE vipid=#{value}
+	</select>
+	<delete id="deleteVip" parameterType="vipList">
+		DELETE FROM vip WHERE vipid=#{vipid}
+	</delete>
+	<update id="updateVip" parameterType="cn.edu.guet.model.VipList">
+		UPDATE vip SET vipname=#{vipname},phone=#{phone},cardid=#{cardid} WHERE vipid=#{vipid}
+	</update>
+</mapper>
