@@ -1,41 +1,33 @@
 package cn.edu.guet.controller;
 
 import cn.edu.guet.common.Result;
-import cn.edu.guet.model.VipList;
+import cn.edu.guet.model.Vip;
 import cn.edu.guet.service.IVipService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
+/**
+ * 开卡Controller
+ */
 @RestController
-@RequestMapping("/vipList")
+@RequestMapping("/vip")
 public class VipController {
 
     @Autowired
-    IVipService vipService;
+    private IVipService vipService;
 
-    @RequestMapping(value = "/getAllList",method = RequestMethod.GET)
-    public List<VipList> getAllList(){
-        return vipService.getAllList();
+    /**
+     * 开卡
+     */
+    @RequestMapping(value = "/add", method = {RequestMethod.POST})
+    public Result add(@RequestBody Vip vip) {
+        if (vipService.selectCountById(vip.getVipId()) > 0) {
+            return Result.fail("会员卡号已存在,请更换");
+        }
+        return vipService.insertVip(vip) > 0 ? Result.succ("添加成功") : Result.fail("添加失败");
     }
 
-    @RequestMapping(value = "/getVipById",method = RequestMethod.POST)
-    public List<VipList> getVipById(@Validated String vipid){
-        return vipService.getVipById(vipid);
-    }
-
-    @RequestMapping(value = "deleteVip",method = RequestMethod.POST)
-    public Result deleteVip(@Validated String vipid){
-        vipService.deleteVip(vipid);
-        return Result.fail("删除成功");
-    }
-
-    @RequestMapping(value = "updateVip",method = RequestMethod.POST)
-    public Result updateVip(@Validated VipList vipid){
-        vipService.updateVip(vipid);
-        return Result.fail("修改成功");
-    }
 }

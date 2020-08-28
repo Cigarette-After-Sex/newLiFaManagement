@@ -11,36 +11,12 @@
 
 		<collection property="childMenus" column="ID" select="getChildMenuByPID"></collection>
 
+
 	</resultMap>
 
-	<select id="getChildMenuByPID" resultMap="getMenuAndChildMenusMap">
+	<select id="getChildMenuByPID" resultType="menu">
 		SELECT c.* FROM menus c,menus p WHERE c.pid=p.id AND p.id=#{value}
 	</select>
-
-	<select id="getUserMenu" resultMap="getMenuAndChildMenusMap">
-		SELECT m.* FROM menus m,user_role ur,role_menu rm WHERE ur.roleid=rm.roleid AND m.id=rm.id AND ur.userid=#{id} AND m.pid IS NULL
-	</select>
-
-
-
-
-
-
-
-
-
-
-
-
-	<delete id="deleteMenu" parameterType="string">
-		DELETE FROM menus WHERE id=#{id}
-	</delete>
-	<delete id="deleteChildRecord" parameterType="string">
-		DELETE FROM role_menu WHERE id=#{id}
-	</delete>
-	<update id="updateMenu" parameterType="cn.edu.guet.model.Menu">
-		UPDATE menus SET url=#{url} WHERE id=#{id}
-	</update>
 
 	<select id="getMenuById" resultMap="getMenuAndChildMenusMap">
 		SELECT * FROM menus WHERE id=#{value}
@@ -48,7 +24,4 @@
 	<select id="getAllMenu" resultMap="getMenuAndChildMenusMap">
 		SELECT * FROM menus
 	</select>
-	<insert id="insertMenu" parameterType="menu">
-		INSERT INTO menus VALUES(#{id},#{pId},#{name},#{icon},#{url})
-	</insert>
 </mapper>

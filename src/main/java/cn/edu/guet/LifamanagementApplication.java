@@ -5,11 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(basePackages="cn.edu.guet.mapper")
-public class LiFaManagementApplication {
+@MapperScan(basePackages = "cn.edu.guet.mapper")
+public class LifamanagementApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LiFaManagementApplication.class, args);
+		SpringApplication.run(LifamanagementApplication.class, args);
 	}
 
 }
