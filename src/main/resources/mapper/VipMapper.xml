@@ -79,4 +79,19 @@
         delete from vip where vipid = #{vipId}
     </delete>
 
+    <select id="getAllList" resultMap="VipResult">
+		SELECT * FROM vip
+	</select>
+
+    <select id="getVipById" resultMap="VipResult">
+		SELECT * FROM vip WHERE vipid=#{value}
+	</select>
+
+    <delete id="deleteVip" parameterType="Vip">
+		DELETE FROM vip WHERE vipid=#{vipId}
+	</delete>
+
+    <update id="updateVipList" parameterType="cn.edu.guet.model.Vip">
+		UPDATE vip SET vipname=#{vipName},phone=#{phone},cardid=#{cardId} WHERE vipid=#{vipId}
+	</update>
 </mapper>

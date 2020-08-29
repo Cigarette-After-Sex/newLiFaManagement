@@ -55,4 +55,10 @@ public interface IVipService {
      * @return 结果
      */
     public int deleteVipById(String vipId);
+
+    public List<Vip> getAllList();
+
+    public List<Vip> getVipById(String vipid);
+    public void deleteVip(String vipid);
+    public void updateVipList(Vip vipid);
 }
