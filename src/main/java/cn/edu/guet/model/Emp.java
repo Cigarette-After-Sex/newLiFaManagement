@@ -1,80 +1,72 @@
 package cn.edu.guet.model;
 
-import java.io.Serializable;
-import java.util.Date;
 
-public class Emp implements Serializable {
+import javax.validation.constraints.NotBlank;
 
-    private static final long serialVersionUID = 1L;
-
+public class Emp {
+    @NotBlank(message = "员工ID不能为空")
     private String empId;
-
-    private String empName;
-
-    private String empLevel;
-
-    private String phone;
-
-    private Date birth;
-
-    private Date hireDate;
-
+    private String empname;
     private String sex;
+    private String emplevel;
+    private String phone;
+    private String birth;
+    private String hiredate;
 
-    public void setEmpId(String empId) {
-        this.empId = empId;
-    }
 
     public String getEmpId() {
         return empId;
     }
 
-    public void setEmpName(String empName) {
-        this.empName = empName;
+    public void setEmpId(String empId) {
+        this.empId = empId;
     }
 
-    public String getEmpName() {
-        return empName;
+    public String getEmpname() {
+        return empname;
     }
 
-    public void setEmpLevel(String empLevel) {
-        this.empLevel = empLevel;
-    }
-
-    public String getEmpLevel() {
-        return empLevel;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setBirth(Date birth) {
-        this.birth = birth;
-    }
-
-    public Date getBirth() {
-        return birth;
-    }
-
-    public void setHireDate(Date hireDate) {
-        this.hireDate = hireDate;
-    }
-
-    public Date getHireDate() {
-        return hireDate;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setEmpname(String empname) {
+        this.empname = empname;
     }
 
     public String getSex() {
         return sex;
     }
 
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getEmplevel() {
+        return emplevel;
+    }
+
+    public void setEmplevel(String emplevel) {
+        this.emplevel = emplevel;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getBirth() {
+        return birth;
+    }
+
+    public void setBirth(String birth) {
+        this.birth = birth;
+    }
+
+    public String getHiredate() {
+        return hiredate;
+    }
+
+    public void setHiredate(String hiredate) {
+        this.hiredate = hiredate;
+    }
 }

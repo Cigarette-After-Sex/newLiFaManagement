@@ -1,64 +1,38 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.guet.mapper.EmpMapper">
 
-    <resultMap type="Emp" id="EmpResult">
-        <result property="empId" column="EMPID"/>
-        <result property="empName" column="EMPNAME"/>
-        <result property="empLevel" column="EMPLEVEL"/>
-        <result property="phone" column="PHONE"/>
-        <result property="birth" column="BIRTH"/>
-        <result property="hireDate" column="HIREDATE"/>
+
+    <resultMap id="getEmp" type="emp">
+        <id property="empId" column="EMPID"/>
+        <result property="empname" column="EMPNAME"/>
         <result property="sex" column="SEX"/>
+        <result property="emplevel" column="EMPLEVEL"/>
+        <result property="phone" column="PHONE"/>
+        <result property="birth" column="BIRTH" />
+        <result property="hiredate" column="HIREDATE" />
     </resultMap>
-
-    <select id="selectEmpList" parameterType="Emp" resultMap="EmpResult">
-        SELECT * FROM EMP
-    </select>
-
-    <select id="selectEmpById" parameterType="String" resultMap="EmpResult">
-        SELECT * FROM EMP WHERE EMPID = #{empId}
-    </select>
-
-    <insert id="insertEmp" parameterType="Emp">
-        INSERT INTO EMP
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="empId != null and empId != ''">EMPID,</if>
-            <if test="empName != null and empName != ''">EMPNAME,</if>
-            <if test="empLevel != null and empLevel != ''">EMPLEVEL,</if>
-            <if test="phone != null and phone != ''">PHONE,</if>
-            <if test="birth != null">BIRTH,</if>
-            <if test="hireDate != null">HIREDATE,</if>
-            <if test="sex != null and sex != ''">SEX,</if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="empId != null and empId != ''">#{empId},</if>
-            <if test="empName != null and empName != ''">#{empName},</if>
-            <if test="empLevel != null and empLevel != ''">#{empLevel},</if>
-            <if test="phone != null and phone != ''">#{phone},</if>
-            <if test="birth != null">#{birth},</if>
-            <if test="hireDate != null">#{hireDate},</if>
-            <if test="sex != null and sex != ''">#{sex},</if>
-        </trim>
+    <select id="getAllEmp" resultMap="getEmp">
+		SELECT * FROM emp
+	</select>
+    <select id="getSoloEmp" resultMap="getEmp">
+		SELECT * FROM emp WHERE empid=#{empId}
+	</select>
+    <insert id="insertEmp" parameterType="emp">
+        INSERT INTO emp VALUES(#{empId},#{empname},#{emplevel},#{phone},to_date(#{birth},'yyyy-mm-dd'),to_date(#{hiredate},'yyyy-mm-dd'),#{sex})
     </insert>
-
-    <update id="updateEmp" parameterType="Emp">
-        UPDATE EMP
-        <trim prefix="SET" suffixOverrides=",">
-            <if test="empName != null and empName != ''">EMPNAME = #{empName},</if>
-            <if test="empLevel != null and empLevel != ''">EMPLEVEL = #{empLevel},</if>
-            <if test="phone != null and phone != ''">PHONE = #{phone},</if>
-            <if test="birth != null">BIRTH = #{birth},</if>
-            <if test="hireDate != null">HIREDATE = #{hireDate},</if>
-            <if test="sex != null and sex != ''">SEX = #{sex},</if>
-        </trim>
-        WHERE EMPID = #{empId}
-    </update>
-
-    <delete id="deleteEmpById" parameterType="String">
-        delete from emp where emp_id = #{empId}
+    <delete id="deleteEmp" parameterType="string">
+        DELETE FROM emp WHERE empid=#{empId}
     </delete>
-
+    <update id="updateEmp" parameterType="emp">
+        UPDATE emp <trim prefix="set" suffixOverrides=",">
+        <if test="empname!=null">empname=#{empname},</if>
+        <if test="emplevel!=null">emplevel=#{emplevel},</if>
+        <if test="phone!=null">phone=#{phone},</if>
+        <if test="birth!=null">birth=to_date(#{birth},'yyyy-mm-dd'),</if>
+        <if test="hiredate!=null">hiredate=to_date(#{hiredate},'yyyy-mm-dd'),</if>
+        <if test="sex!=null">sex=#{sex},</if>
+    </trim>
+        WHERE empid=#{empId}
+    </update>
 </mapper>

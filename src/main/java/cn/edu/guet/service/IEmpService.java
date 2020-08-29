@@ -12,14 +12,14 @@ public interface IEmpService {
      * @param empId 职工ID
      * @return 职工
      */
-    public Emp selectEmpById(String empId);
+    List<Emp> getSoloEmp(String empId);
 
     /**
      * 查询职工列表
      *
      * @return 职工集合
      */
-    public List<Emp> selectEmpList();
+    List<Emp> getAllEmp();
 
     /**
      * 新增职工
@@ -27,7 +27,7 @@ public interface IEmpService {
      * @param emp 职工
      * @return 结果
      */
-    public int insertEmp(Emp emp);
+    void insertEmp(Emp emp) throws Exception;
 
     /**
      * 修改职工
@@ -35,7 +35,7 @@ public interface IEmpService {
      * @param emp 职工
      * @return 结果
      */
-    public int updateEmp(Emp emp);
+    void updateEmp(Emp emp) throws Exception;
 
     /**
      * 删除职工信息
@@ -43,5 +43,5 @@ public interface IEmpService {
      * @param empId 职工ID
      * @return 结果
      */
-    public int deleteEmpById(String empId);
+    void deleteEmp(String empId) throws Exception;
 }

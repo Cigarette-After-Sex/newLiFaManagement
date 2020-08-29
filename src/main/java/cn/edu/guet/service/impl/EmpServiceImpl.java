@@ -12,59 +12,32 @@ import java.util.List;
 public class EmpServiceImpl implements IEmpService {
 
     @Autowired
-    private EmpMapper empMapper;
+    EmpMapper empMapper;
 
-    /**
-     * 查询职工
-     *
-     * @param empId 职工ID
-     * @return 职工
-     */
     @Override
-    public Emp selectEmpById(String empId) {
-        return empMapper.selectEmpById(empId);
+    public List<Emp> getAllEmp() {
+        return empMapper.getAllEmp();
     }
 
-    /**
-     * 查询职工列表
-     *
-     * @return 职工
-     */
     @Override
-    public List<Emp> selectEmpList() {
-        return empMapper.selectEmpList();
+    public List<Emp> getSoloEmp(String empId) {
+        return empMapper.getSoloEmp(empId);
     }
 
-    /**
-     * 新增职工
-     *
-     * @param emp 职工
-     * @return 结果
-     */
     @Override
-    public int insertEmp(Emp emp) {
-        return empMapper.insertEmp(emp);
+    public void insertEmp(Emp emp) throws Exception{
+        empMapper.insertEmp(emp);
     }
 
-    /**
-     * 修改职工
-     *
-     * @param emp 职工
-     * @return 结果
-     */
     @Override
-    public int updateEmp(Emp emp) {
-        return empMapper.updateEmp(emp);
+    public void deleteEmp(String empId) throws Exception {
+        empMapper.deleteEmp(empId);
     }
 
-    /**
-     * 删除职工信息
-     *
-     * @param empId 职工ID
-     * @return 结果
-     */
     @Override
-    public int deleteEmpById(String empId) {
-        return empMapper.deleteEmpById(empId);
+    public void updateEmp(Emp emp) throws Exception {
+        empMapper.updateEmp(emp);
     }
+
+
 }
