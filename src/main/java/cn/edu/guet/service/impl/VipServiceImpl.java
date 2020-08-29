@@ -5,6 +5,7 @@ import cn.edu.guet.model.Vip;
 import cn.edu.guet.service.IVipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -82,5 +83,27 @@ public class VipServiceImpl implements IVipService {
     @Override
     public int deleteVipById(String vipId) {
         return vipMapper.deleteVipById(vipId);
+    }
+
+    @Override
+    public List<Vip> getAllList() {
+        return vipMapper.getAllList();
+    }
+
+    @Override
+    public List<Vip> getVipById(String vipId) {
+        return vipMapper.getVipById(vipId);
+    }
+
+    @Override
+    @Transactional()
+    public void deleteVip(String vipId) {
+        vipMapper.deleteVip(vipId);
+    }
+
+    @Override
+    @Transactional()
+    public void updateVipList(Vip vipId) {
+        vipMapper.updateVipList(vipId);
     }
 }
